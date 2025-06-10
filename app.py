@@ -3,7 +3,7 @@ from PIL import Image
 import numpy as np
 import keras
 
-st.set_page_config(page_title="PCB Anomaly Detection", page_icon="🔍")
+st.set_page_config(page_title="Anomaly-Detection-using-Teachable-Machine", page_icon="🔍")
 
 @st.cache_resource
 def load_model():
@@ -22,7 +22,7 @@ def predict(image, model, labels):
     idx = np.argmax(prediction)
     return labels[idx], prediction[idx]
 
-st.title("🔍 PCB Anomaly Detector")
+st.title("🔍 Anomaly-Detection-using-Teachable-Machine")
 
 uploaded = st.file_uploader("Upload a PCB Image", type=["jpg", "jpeg", "png"])
 
