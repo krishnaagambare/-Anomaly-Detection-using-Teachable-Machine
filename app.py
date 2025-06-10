@@ -9,7 +9,7 @@ st.set_page_config(page_title="Anomaly-Detection-using-Teachable-Machine", page_
 def load_model():
     with open("labels.txt", "r") as f:
         labels = [line.strip() for line in f.readlines()]
-    model = keras.layers.TFSMLayer("my_model", call_endpoint="serving_default")
+    model = keras.layers.TFSMLayer("model.savedmodel", call_endpoint="serving_default")
     return model, labels
 
 def predict(image, model, labels):
