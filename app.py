@@ -4,8 +4,8 @@ import numpy as np
 import keras
 
 # ---- PAGE CONFIG ----
-st.set_page_config(page_title="🔍 Anomaly-Detection-using-Teachable-Machine
-", page_icon="🧠", layout="centered")
+st.set_page_config(page_title="🔍 Anomaly-Detection-using-Teachable-Machine", page_icon="🧠", layout="centered")
+
 
 # ---- STYLING ----
 st.markdown("""
