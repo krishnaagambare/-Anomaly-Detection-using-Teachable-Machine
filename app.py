@@ -4,36 +4,54 @@ import numpy as np
 import keras
 
 # ---- PAGE CONFIG ----
-st.set_page_config(page_title="🔍 Anomaly-Detection-using-Teachable-Machine", page_icon="🧠", layout="centered")
+st.set_page_config(
+    page_title="🔍 Anomaly-Detection-using-Teachable-Machine",
+    page_icon="🧠",
+    layout="wide"
+)
 
-
-# ---- STYLING ----
+# ---- CUSTOM CSS ----
 st.markdown("""
     <style>
-    .reportview-container {
+    .main {
         background-color: #0E1117;
+        color: #FFFFFF;
+    }
+    .stButton button {
+        background-color: #00CCAA;
         color: white;
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 0.3rem;
     }
-    .css-18e3th9 {
-        padding: 2rem 1rem 10rem;
-    }
-    h1 {
-        color: #00FFCC;
-        font-size: 2.5rem;
+    .stFileUploader {
+        border: 2px dashed #00CCAA;
+        padding: 1rem;
+        border-radius: 0.5rem;
     }
     </style>
 """, unsafe_allow_html=True)
 
 # ---- HEADER ----
-st.markdown("<h1 style='text-align: center;'>🔍 Anomaly-Detection using Teachable Machine</h1>", unsafe_allow_html=True)
-st.write("")
+st.title("🔍 Anomaly-Detection-using-Teachable-Machine")
+st.markdown("""<h4 style='color:#AAAAAA;'>Upload a PCB image to classify it as Defective or Normal.</h4>""", unsafe_allow_html=True)
+
+# ---- EXAMPLE IMAGES ----
+st.markdown("### 🧾 Example Images")
+col1, col2 = st.columns(2)
+
+with col1:
+    st.image("https://i.imgur.com/tMHD4uR.png", caption="✅ Normal PCB", use_column_width=True)
+
+with col2:
+    st.image("https://i.imgur.com/XbR8Myf.png", caption="❌ Defective PCB", use_column_width=True)
 
 # ---- FILE UPLOAD ----
-uploaded_file = st.file_uploader("📤 Upload a PCB Image", type=["jpg", "jpeg", "png"])
+uploaded_file = st.file_uploader("Upload a PCB Image", type=["jpg", "jpeg", "png"])
 
 if uploaded_file:
     image = Image.open(uploaded_file).convert("RGB")
-    st.image(image, caption="📷 Uploaded Image", use_column_width=True)
+    st.image(image, caption="📷 Your Uploaded PCB", use_column_width=True)
 
     # ---- LOAD MODEL ----
     @st.cache_resource
@@ -58,12 +76,11 @@ if uploaded_file:
 
     label, confidence = predict(image, model, labels)
 
-    # ---- RESULT DISPLAY ----
-    st.markdown("### 🧪 Prediction Result")
+    st.markdown("### 📊 Prediction Result")
     if label.lower() == "anomaly":
-        st.error(f"❌ Defect Detected: **{label}**\n\nConfidence: `{confidence:.2%}`")
+        st.error(f"❌ Defect Detected\n\nConfidence: `{confidence:.2%}`")
     else:
         st.success(f"✅ PCB is Normal\n\nConfidence: `{confidence:.2%}`")
 
 else:
-    st.markdown("⚠️ Please upload a PCB image to begin anomaly detection.")
+    st.info("⬆️ Upload a PCB image to start analysis. Or check the examples above.")
