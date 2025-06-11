@@ -2,6 +2,7 @@ import streamlit as st
 from PIL import Image
 import numpy as np
 import keras
+import os
 
 # ---- PAGE CONFIG ----
 st.set_page_config(
@@ -45,6 +46,11 @@ with col1:
 
 with col2:
     st.image("https://i.imgur.com/XbR8Myf.png", caption="❌ Defective PCB", use_column_width=True)
+
+# ---- LOCAL EXAMPLE IMAGE FROM REPO ----
+if os.path.exists("example_pcb.jpg"):
+    st.markdown("### 🧪 Example Uploaded Image")
+    st.image("example_pcb.jpg", caption="🧠 Repo Example: PCB Sample", use_column_width=True)
 
 # ---- FILE UPLOAD ----
 uploaded_file = st.file_uploader("Upload a PCB Image", type=["jpg", "jpeg", "png"])
